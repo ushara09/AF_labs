@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab 2</title>
+</head>
+<body>
+<script type="text/javascript">
+
+    /*
+    function getValue(callback){
+        let value = 0;
+
+        setTimeout(function (){
+            value = 10;             (callback is always a function)
+            callback(value);    //value = 10 una wele value eka callback kiyala function ekakata pass karanwa parameter
+        },1000)                 ekak widiyata. callback kiyana function eken wenne value eka print karana eka
+                                ('callback' is just a name. it can be any name). yam time period ekekata pass wenna oney onama
+        return value;           deyak callback eka athule implement karanna puluwan (line 22)
+    }                           * (asynchronous) execte wenna oney thenata functional pointor ekak danwa(line 16)
+                                    (can pass any number of variables to the callback function)
+    getValue(function (value){
+        console.log(value);
+    })
+    */
+
+
+     function getValue(callback) {
+        let value = 0;
+        setTimeout(function(){
+            value = 10;
+            // this is the anonymous function defined in line 27
+            callback(value);
+        },1000);
+    }
+
+    function getNewValue(value, callback){ // in here 'callback' is a functional pointer
+         setTimeout(function(){
+             // this is the anonymous function defined in line 29
+             callback(value * 100);
+         }, 1000)
+    }
+
+    //calling the function defined at line 10
+    getValue(function(value){
+        //calling the function defined in line 19
+        getNewValue(value, function (newValue){
+            console.log(newValue);
+        })
+    });
+
+///////////converting into promises//////////////////////
+
+
+    //creating a promise object
+    let promise = new Promise(function (resolve, reject){
+        resolve();
+        reject();
+    })
+
+
+    function getValue(callback) {
+        let value = 0;
+
+        return new Promise(function (resolve, reject){
+            setTimeout(function(){
+                value = 10;
+                resolve(value);
+            },1000);
+        })
+
+
+    }
+
+    function getNewValue(value){
+        return new Promise(function (resolve, reject){
+            setTimeout(function(){
+                resolve(value * 100);
+            }, 1000)
+        })
+
+
+
+    }
+
+    /*
+    getValue().then(function (value){ // 'then' eka athule resolve unama [resolve() method eka call unama ]
+        console.log(value);             //wenna oney de implement karana oney
+    })
+*/
+
+    getValue().then(function (value){ //palaweni promise eke resolve eka (then eka)
+        return getNewValue(value);
+    }).then(function (newvalue){ //deweni promise eke resolve eka (then eka)
+        console.log(newvalue);
+    })
+
+    //calling the above async functions (same thing done line 92, but using async and await)
+    async function print(){
+        let value = await getValue();
+        value = await getNewValue(value);
+        console.log(value);
+    }
+
+    print();
+
+
+</script>
+</body>
+</html>

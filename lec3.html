@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+  //  function Vehical(type){                             /*'this' key word eka object level variables*/
+  //      Vehical.INSTANCE++;                             /*'Vehical.INSTANCE' class level variable*/
+  //      this.type = type;
+  //  }
+
+    /*Vehical.INSTANCE = 0; //static variable(using instance keyword)
+
+    //Vehical.prototype.INSTANCE = 0;    we doesnt put instance in prototype because we dont need to inherit.
+
+    Vehical.prototype.getType = function (){
+        return this.type;
+    }
+
+    const car = new Vehical('benz')
+    console.log(car.getType());
+    console.log(Vehical.INSTANCE); */
+
+  /*NEW SYNTAX THAT WE CAN USE IN JS THAT FAMILLIAR TO JAVA... THESE ARE WRAPPERS*/
+
+  class Vehical {
+
+      static INSTANCE = 0; //class level variable
+
+      constructor(type){
+          Vehical.INSTANCE++;
+          this.type = type; //object level variable
+      }
+
+      getType(){
+          return this.type;
+      }
+
+  }
+
+  class Car extends Vehical{
+
+      constructor(name, type) {
+          super('car');
+          this.name = name; //object level variable
+      }
+
+      getName(){
+          return this.name;
+      }
+  }
+
+  const car = new Car('ferari')
+
+  console.log(car.getType())    //object level variable
+  console.log(car.getName())
+  console.log(Vehical.INSTANCE)  //class level variable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
