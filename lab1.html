@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //in javaScript every thing is a object
+
+        //Question 01
+
+        // console.log("hello world ");
+
+        /* function print(){
+             console.log("Hello world !");
+         }
+
+         print();*/
+
+        var printHello = function(){
+            console.log("hello world !");
+        }
+
+        function printU(name){
+            name();
+        }
+
+        //printU(printHello);
+
+        //Question 02
+
+        // JASON objects cannot have functions
+        // JS objects can have functions
+
+        var person = { //person object
+            name: "ushara",
+            age: 20,
+            printName: function(){
+                console.log(this.name);
+            }
+        }
+
+        // person.printName();
+
+        //question 3
+
+        var vehicalName = 'Benz';
+
+        function printVehicleName(){
+            console.log(this.vehicalName);
+        }
+
+
+
+        var car = {
+            vehicalName: 'nissan',
+            // printName: printVehicleName, //printName function points to printVehicalName function (in 49 row)
+            /* printName: function() {    //same thing in line 57
+                 console.log(this.vehicalName);
+             } */
+
+            printName: function(){
+                return function(){
+                    console.log(this.vehicalName);    //printName function eka athule return karana function eke
+                }                                     // vehicalName kiyala variable ekak nathi nisa eka point wenne global
+            }                                         // variable ekata (line 51, "Benz"...  nissan ekata newe)
+        }
+
+        // printVehicleName();
+
+        /*  var execute = car.printName();
+         execute = execute.bind(car); //binding using bind function to LIMIT THE SCOPE OF THE "vehicalName" variable
+         execute();*/
+
+        //Qusetion 4
+
+        function taxCalculater(percentage){
+            return function(amount){
+                return amount*percentage;
+            }
+        }
+
+        // function CLOSURE - internal function accessing the out side functions parameters, arguments etc...
+
+        var calculater = taxCalculater(0.12);
+        //console.log(calculater(200))
+
+
+        //Question 5
+
+        fetch('https://jsonplaceholder.typicode.com/todos/').then(function (response) {
+            return response.json();
+        }).then(function (data){
+            console.log(data);
+        });
+
+
+
+    </script>
+</body>
+</html>
